@@ -1,0 +1,108 @@
+<div class="container">
+    <div class="row">
+     <div class="col-md-6">
+  <div class="card">
+    <div class="text-center">
+      <h1>Sign Up</h1>
+      <h6>Register Yourself !!</h6>
+    </div>
+    
+      <form [formGroup]="UserdataModel.formUserGroup">
+         <div class="mb-3">
+            <label for="exampleInputFirstName" class="form-label">First name</label>
+            <input type="text" [(ngModel)]="UserdataModel.firstName" formControlName="FirstNameControl"   class="form-control" >
+            <p style="color: red;" [hidden]="!(hasError('required','FirstNameControl'))">First Name is required</p>         
+          </div>    
+          <div class="mb-3">
+            <label for="exampleInputLastName" class="form-label">Last name</label>
+            <input type="text" [(ngModel)]="UserdataModel.lastName" formControlName="LastNameControl"  class="form-control" >         
+            <p style="color: red;" [hidden]="!(hasError('required','LastNameControl'))">Last Name is required</p>         
+          </div>  
+          <div class="mb-3">
+            <label for="exampleInputUserName" class="form-label">User name</label>
+            <input type="text" [(ngModel)]="UserdataModel.userName" formControlName="UserNameControl"   class="form-control" >
+            <p style="color: red;" [hidden]="!(hasError('required','UserNameControl'))">UserName is required</p>           
+          </div>     
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" [(ngModel)]="UserdataModel.password" formControlName="Password1Control"  class="form-control" >
+            <p style="color: red;" [hidden]="!(hasError('required','Password1Control'))">Password is required</p>   
+            <p style="color: red;" [hidden]="!(hasError('pattern','Password1Control'))">Password should be in correct format</p>           
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword2" class="form-label">Confirm Password</label>
+            <input type="password" [(ngModel)]="UserdataModel.conPassword" formControlName="Password2Control"  class="form-control" > 
+            <p style="color: red;" [hidden]="!(hasError('required','Password2Control'))">Confirm Password is required</p>                    
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Address</label>
+            <textarea class="form-control" [(ngModel)]="UserdataModel.address" formControlName="AddressControl"  id="exampleFormControlTextarea1" rows="3"></textarea>
+            <p style="color: red;" [hidden]="!(hasError('required','AddressControl'))">Address is required</p> 
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputState" class="form-label">State</label>
+            <!-- <input type="text" [(ngModel)]="UserdataModel.state" formControlName="StateControl"  class="form-control" > -->
+            <select class="form-select" [(ngModel)]="UserdataModel.state" formControlName="StateControl">
+              <option selected>Choose...</option>
+              <option *ngFor= "let state of StateDataModels">
+                {{state.stateName}}
+              </option>
+              
+            </select>
+            <p style="color: red;" [hidden]="!(hasError('required','StateControl'))">State is required</p>          
+          </div> 
+          <div class="mb-3">
+            <label for="exampleInputCity" class="form-label">City</label>
+            <input type="text" [(ngModel)]="UserdataModel.city" formControlName="CityControl"  class="form-control" > 
+            <p style="color: red;" [hidden]="!(hasError('required','CityControl'))">City is required</p>                  
+          </div> 
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Email address</label>
+          <input type="email" [(ngModel)]="UserdataModel.email" formControlName="EmailControl" class="form-control" aria-describedby="emailHelp">
+          <p style="color: red;" [hidden]="!(hasError('required','EmailControl'))">Email is required</p>
+          <p style="color: red;" [hidden]="!(hasError('pattern','EmailControl'))">Email should be proper format</p>
+          
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputDOB" class="form-label">Date Of Birth</label>
+          <input type="date" class="form-control" [(ngModel)]="UserdataModel.dateOfBirth" formControlName="DOBControl"  id="exampleInputPublishers">
+          <p style="color: red;" [hidden]="!(hasError('required','DOBControl'))">Date Of Birth is required</p>
+        </div>
+        
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="inputGroupSelect01">User Role</label>
+          <select class="form-select" [(ngModel)]="UserdataModel.memberType" formControlName="roleControl">
+            <!--<option selected>Choose...</option> -->
+            <option value="1">Admin</option>
+            <option value="2">Member</option>
+          </select>  
+          <p style="color: red;" [hidden]="!(hasError('required','roleControl'))">User Role is required</p> 
+        </div>
+        <button type="button" [disabled]="(UserdataModel.formUserGroup.invalid)" (click)="registerUser()"  class="btn" style="color: beige;background-color: black;">Submit</button>
+      </form>
+    
+  </div>
+     </div>
+    </div>
+  </div>
+
+  <!-- Button trigger modal -->
+<button id="btnError" style="display: none;" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Error
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-body">
+        {{ErrorMsg}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>

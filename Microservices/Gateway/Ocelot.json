@@ -1,0 +1,53 @@
+{
+  "Routes": [
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/Login/login-user",
+      "DownstreamScheme": "https",
+      "ServiceName": "memberService",
+      "UpstreamPathTemplate": "/api/gateway/Login/loginuser",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/Login/register-user",
+      "DownstreamScheme": "https",
+      "ServiceName": "memberService",
+      "UpstreamPathTemplate": "/api/gateway/Login/register",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/Member/Member-Add",
+      "DownstreamScheme": "https",
+      "ServiceName": "memberService",
+      "UpstreamPathTemplate": "/api/gateway/Member/MemberAdd",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/State/Get-State-All",
+      "DownstreamScheme": "https",
+      "ServiceName": "memberService",
+      "UpstreamPathTemplate": "/api/gateway/State/GetStateAll",
+      "UpstreamHttpMethod": [ "Get" ]
+    }
+    //{
+    //  "UseServiceDiscovery": true,
+    //  "DownstreamPathTemplate": "/api/Cancel/Book-Cancel",
+    //  "DownstreamScheme": "https",
+    //  "ServiceName": "readerService",
+    //  "UpstreamPathTemplate": "/api/gateway/Cancel/BookCancel",
+    //  "UpstreamHttpMethod": [ "Post" ]
+    //}
+
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:44308",
+    "ServiceDiscoveryProvider": {
+      "Host": "localhost",
+      "Port": "8500",
+      "Type": "Consul"
+    }
+  }
+}
