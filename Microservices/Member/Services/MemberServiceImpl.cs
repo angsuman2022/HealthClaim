@@ -30,8 +30,12 @@ namespace Member.Services
             {
                 if (IsRegister)
                 {
-                    //var existingMember = db.MemberDets.Where(x => x.UserName == login.UserName)
-                    //                                            .FirstOrDefault<MemberDet>();
+                    if(login.MemberType=="Member")
+                    {
+                        login.CreateDate = System.DateTime.Now;                       
+                        Random rnd = new Random();
+                        login.PhysianId = rnd.Next(1,8);
+                    }
                     db.MemberDets.Add(login);
                     db.SaveChanges();
                     return login;
@@ -68,6 +72,171 @@ namespace Member.Services
 
         }
 
+
+        public IEnumerable<MemberList> GetMemberClaim()
+        {
+
+
+            var memberlist = (from pd in db.MemberDets.Where(x => x.MemberType == "Member")
+                              join ph in db.PhysicianDets on pd.PhysianId equals ph.PhysicianId
+                              join od in db.Claimtbls on pd.MemberId equals od.MemberId
+                              into gj
+                              from fd in gj.DefaultIfEmpty()
+                              select new
+                            {
+                                 MemberId = pd.MemberId,
+                                 FirstName = pd.FirstName,
+                                 LastName = pd.LastName,
+                                 PhysianId = pd.PhysianId,
+                                 PhysicianName = ph.PhysicianName,
+                                 ClaimId = fd == null ? 0 : fd.ClaimId,
+                                 ClaimAmount = fd == null ? 0 : fd.ClaimAmount,
+                                 ClaimDate = fd == null ? Convert.ToDateTime("9999-09-09") : fd.ClaimDate,
+                               
+
+                            }).ToList();
+
+            MemberList memberList;
+            List<MemberList> memberLists = new List<MemberList>();
+            foreach (var item in memberlist)
+            {
+                memberList = new MemberList();
+
+                memberList.MemberId = item.MemberId;
+                memberList.FirstName = item.FirstName;
+                memberList.LastName = item.LastName;
+                memberList.PhysianId = item.PhysianId;
+                memberList.PhysicianName = item.PhysicianName;
+                memberList.ClaimId = item.ClaimId;
+                memberList.ClaimAmount = item.ClaimAmount;
+                memberList.ClaimDate = Convert.ToDateTime(item.ClaimDate.ToString()).ToString("dd/MM/yyyy");
+                memberList.ClaimDate = memberList.ClaimDate == "09-09-9999" ? "" : memberList.ClaimDate;
+                memberList.btnVisible = true;
+
+
+                memberLists.Add(memberList);
+
+            }
+
+            return memberLists;
+
+        }
+
+        public IEnumerable<MemberList> GetMemberClaim(int memberId)
+        {
+
+
+            var memberlist = (from pd in db.MemberDets.Where(x => x.MemberId== memberId)
+                              join ph in db.PhysicianDets on pd.PhysianId equals ph.PhysicianId
+                              join od in db.Claimtbls on pd.MemberId equals od.MemberId
+                              into gj
+                              from fd in gj.DefaultIfEmpty()
+                              select new
+                              {
+                                  MemberId = pd.MemberId,
+                                  FirstName = pd.FirstName,
+                                  LastName = pd.LastName,
+                                  PhysianId = pd.PhysianId,
+                                  PhysicianName = ph.PhysicianName,
+                                  ClaimId = fd == null ? 0 : fd.ClaimId,
+                                  ClaimAmount = fd == null ? 0 : fd.ClaimAmount,
+                                  ClaimDate = fd == null ? Convert.ToDateTime("9999-09-09") : fd.ClaimDate,
+
+
+                              }).ToList();
+
+            MemberList memberList;
+            List<MemberList> memberLists = new List<MemberList>();
+            foreach (var item in memberlist)
+            {
+                memberList = new MemberList();
+
+                memberList.MemberId = item.MemberId;
+                memberList.FirstName = item.FirstName;
+                memberList.LastName = item.LastName;
+                memberList.PhysianId = item.PhysianId;
+                memberList.PhysicianName = item.PhysicianName;
+                memberList.ClaimId = item.ClaimId;
+                memberList.ClaimAmount = item.ClaimAmount;
+                memberList.ClaimDate = Convert.ToDateTime(item.ClaimDate.ToString()).ToString("dd/MM/yyyy");
+                memberList.ClaimDate = memberList.ClaimDate == "09-09-9999" ? "" : memberList.ClaimDate;
+                memberList.btnVisible = false;
+
+
+                memberLists.Add(memberList);
+
+            }
+
+            return memberLists;
+
+        }
+
+        public IEnumerable<MemberList> GetSearchMemberClaim(MemberList obj)
+        {
+
+
+            var memberlist = (from pd in db.MemberDets.Where(x => (x.FirstName==obj.FirstName || obj.FirstName=="") && (x.LastName==obj.LastName || obj.LastName=="") && (x.MemberId==obj.MemberId || obj.MemberId==0))
+                              join ph in db.PhysicianDets.Where(x => (x.PhysicianName == obj.PhysicianName || obj.PhysicianName == "")) on pd.PhysianId equals ph.PhysicianId
+                              join od in db.Claimtbls on pd.MemberId equals od.MemberId
+                              into gj
+                              from fd in gj.DefaultIfEmpty()
+                              select new
+                              {
+                                  MemberId = pd.MemberId,
+                                  FirstName = pd.FirstName,
+                                  LastName = pd.LastName,
+                                  PhysianId = pd.PhysianId,
+                                  PhysicianName = ph.PhysicianName,
+                                  ClaimId = fd == null ? 0 : fd.ClaimId,
+                                  ClaimAmount = fd == null ? 0 : fd.ClaimAmount,
+                                  ClaimDate = fd == null ? Convert.ToDateTime("9999-09-09") : fd.ClaimDate,
+
+
+                              }).ToList();
+
+            MemberList memberList;
+            List<MemberList> memberLists = new List<MemberList>();
+            foreach (var item in memberlist)
+            {
+                memberList = new MemberList();
+
+                memberList.MemberId = item.MemberId;
+                memberList.FirstName = item.FirstName;
+                memberList.LastName = item.LastName;
+                memberList.PhysianId = item.PhysianId;
+                memberList.PhysicianName = item.PhysicianName;
+                memberList.ClaimId = item.ClaimId;
+                memberList.ClaimAmount = item.ClaimAmount;
+                memberList.ClaimDate = Convert.ToDateTime(item.ClaimDate.ToString()).ToString("dd/MM/yyyy");
+                memberList.ClaimDate = memberList.ClaimDate == "09-09-9999" ? "" : memberList.ClaimDate;
+                memberList.btnVisible = true;
+
+
+                memberLists.Add(memberList);
+
+            }
+
+            return memberLists;
+
+        }
+
+
+        public bool ExistingMember(MemberDet obj)
+        {
+            bool rtn = false;
+            var existingMember = db.MemberDets.Where(x => x.UserName == obj.UserName)
+                                                       .FirstOrDefault<MemberDet>();
+
+            if(existingMember!=null)
+            {
+                rtn= true;
+            }
+
+
+            return rtn;
+
+        }
+
         //--=== Member ===---
         public string MemberAdd(MemberDet obj)
         {
@@ -84,6 +253,9 @@ namespace Member.Services
                 else
                 {
                     obj.CreateDate = System.DateTime.Now;
+                    obj.MemberType = "Member";
+                    Random rnd = new Random();
+                    obj.PhysianId=rnd.Next(1,8);
                     db.MemberDets.Add(obj);
                     db.SaveChanges();
                     msg= "Record entry Successful.";
@@ -97,7 +269,12 @@ namespace Member.Services
             return msg;
         }
 
+        public IEnumerable<PhysicianDet> GetAllPhysician()
+        {
 
+            return db.PhysicianDets;
+
+        }
 
         //public IEnumerable<Order> GetMemberList()
         //{

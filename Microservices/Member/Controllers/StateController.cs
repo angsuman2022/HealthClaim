@@ -21,7 +21,7 @@ namespace Member.Controllers
 
         [HttpGet]
         [Route("Get-State-All")]
-        public IEnumerable<Statetbl> Getallbooks()
+        public IEnumerable<Statetbl> Getstates()
         {
 
             return memberService.GetAllState();

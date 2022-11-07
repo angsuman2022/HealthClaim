@@ -32,9 +32,9 @@ export class LoginComponent implements OnInit{
       localStorage.setItem('userid',res.userid);
       localStorage.setItem('role',res.role);
       if(localStorage.getItem('role')=="Admin")
-         this._router.navigate(['home']);
-         //else
-        // this._router.navigate(['bookadd/add']);
+         this._router.navigate(['adminpage/add']);
+         else
+         this._router.navigate(['memberpage/add']);
 
     }, res=>
     {

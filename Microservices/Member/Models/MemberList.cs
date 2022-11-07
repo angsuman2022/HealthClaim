@@ -14,7 +14,9 @@ namespace Member.Models
         public string PhysicianName { get; set; }
         public int ClaimId { get; set; }    
         public decimal? ClaimAmount { get; set; }
-        public DateTime? ClaimDate { get; set; }
-        
+        public string ClaimDate { get; set; }
+        public bool   btnVisible { get; set; }
+
+
     }
 }

@@ -22,7 +22,7 @@ export class LoginServiceService {
   }
   registerUser(register:any)
   {
-    debugger;
+    
     return this.http.post<any>(this._registerUrl,register);
   }
   getToken()

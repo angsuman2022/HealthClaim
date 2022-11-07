@@ -51,6 +51,11 @@ namespace Member.Controllers
         [Route("register-user")]
         public IActionResult Register(MemberDet login)
         {
+            bool result = memberService.ExistingMember(login);
+            if(result)
+            {
+                return Ok(new { status="This Member is already exists." });
+            }
             IActionResult response = Unauthorized();
             var user = memberService.AuthenticateUser(login, true);
             if (user != null)

@@ -1,0 +1,18 @@
+<table class="table table-bordered tbldata" >
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col" *ngFor="let col of gridColumns">
+            {{col.colName=="memberId"?"Member Id":col.colName=="firstName"?"First Name":col.colName=="lastName"?"Last Name":col.colName=="physicianName"?"Physician Name":col.colName=="claimId"?"Claim ID":col.colName=="claimAmount"?"Claim Amount":col.colName=="claimDate"?"Claim Date":col.colName}}
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr scope="row" *ngFor="let colObj of gridData">
+        <td *ngFor="let col of gridColumns">
+            {{colObj[col.colName]=="0"?"":colObj[col.colName]}}
+        </td>
+        
+        
+    </tr>
+    </tbody>
+</table>

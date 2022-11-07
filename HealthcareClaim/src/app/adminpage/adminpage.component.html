@@ -1,0 +1,272 @@
+
+<div class="container">
+    
+     <div class="card">
+    <div class="text-center">
+      <h3 style="font-weight: bold;">Member Search</h3>
+    
+    </div>
+    <div class="row ">               
+        <div class="col-md-3 " style="margin-left: 80%;">
+            
+            <div> 
+               <button type="button" class="btn" style="color:beige;background-color:black;" data-bs-toggle="modal" data-bs-target="#exampleModal"
+               >Add Member</button>
+            </div>
+           
+          
+
+        </div>
+    </div>
+    
+      <form style="width: 50%;">
+        <div class="mb-3">
+          <div class="row">
+            <div class="col-md-3">
+               <label for="exampleInputUserName" class="form-label" style=" font-weight: bold;">Member Id</label>
+            </div>
+            <div class="col-md-3">
+                <input type="text" [(ngModel)]="MemberSearchModel.memberId" [ngModelOptions]="{standalone: true}" class="form-control" id="txtMemberID" style="width: 200px;">
+            </div>
+         
+          </div>
+
+        </div>
+        <div class="mb-3">
+          
+        <div class="row">
+            <div class="col-md-3">
+                <label for="exampleInputName" class="form-label" style=" font-weight: bold;">Name</label>
+            </div>
+            <div class="col-md-5">
+              <input type="text" [(ngModel)]="MemberSearchModel.firstName" [ngModelOptions]="{standalone: true}" class="form-control" id="txtFirstName" placeholder="First Name" style="width: 200px;">
+            </div>
+            <div class="col-md-3">
+             <input type="text" [(ngModel)]="MemberSearchModel.lastName" [ngModelOptions]="{standalone: true}" class="form-control" id="txtLastName" placeholder="Last Name" style="width: 200px;">
+            </div> 
+        </div>
+          
+        </div>
+        <div class="mb-3">
+            <div class="row">
+              <div class="col-md-3">
+                 <label for="exampleInputPhysician" class="form-label" style=" font-weight: bold;">Physician</label>
+              </div>
+              <div class="col-md-3">
+                <select class="form-select" [(ngModel)]="MemberSearchModel.physicianName" [ngModelOptions]="{standalone: true}" >
+                  <option selected>Choose...</option>
+                  <option *ngFor= "let physician of PhysicianDataModels">
+                    {{physician.physicianName}}
+                  </option>
+                  
+                </select>
+              </div>
+              <div class="col-md-2">
+                <button type="button" (click)="SearchMember()" class="btn" style="color:beige;background-color:black;">Search</button>
+             </div>
+             <div class="col-md-3">
+              <button type="button" (click)="Clear()" class="btn" style="color:beige;background-color:black;">Clear</button>
+           </div>
+            </div>
+  
+          </div>
+       
+        <!-- <button type="button" (click)="loginUser()" class="btn" style="color:beige;background-color:black;">Login</button> -->
+
+        <div style="padding-left: 80%;">
+           <!--  <button type="button" (click)="registerclick()"  class="btn" style="color:beige;background-color:black;">Register</button> -->
+        </div>
+        
+      </form>
+    
+  </div>
+    
+</div>
+
+<div class="container">
+  <div class="card">
+    <div class="row mt-5" *ngIf="MemberClaimModels.length == 0">
+      <div class="col text-center">
+        <span class="text fs-2 fw-bold fst-italic" style="color:ivory"> There are No Members Added!</span>
+      </div>
+    </div>
+    <div class="row mt-5" *ngIf="MemberClaimModels.length != 0">
+    <app-grid-ui  [grid-columns]="[{'colName':'memberId'},{'colName':'firstName'},{'colName':'lastName'},{'colName':'physicianName'},{'colName':'claimId'},{'colName':'claimAmount'},{'colName':'claimDate'}]"
+      [grid-data]="MemberClaimModels" 
+      (grid-selected)="ClaimClick($event)">
+    </app-grid-ui>
+  </div>
+  </div>
+
+</div>
+
+
+  <!--Add Member -->
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content claim">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel" style="font-weight: bold;">Add Member</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="UserdataModel.formUserGroup">
+                <div class="mb-3">
+                   <label for="exampleInputFirstName" class="form-label">First name</label>
+                   <input type="text" [(ngModel)]="UserdataModel.firstName" formControlName="FirstNameControl"   class="form-control" >
+                   <span class="validspan" *ngIf="!UserdataModel.formUserGroup.controls['FirstNameControl'].valid &&
+                   UserdataModel.formUserGroup.controls['FirstNameControl']?.touched" style="color: red;"> Please enter min 5 charecters max 20.</span>        
+                 </div>    
+                 <div class="mb-3">
+                   <label for="exampleInputLastName" class="form-label">Last name</label>
+                   <input type="text" [(ngModel)]="UserdataModel.lastName" formControlName="LastNameControl"  class="form-control" >         
+                   <span class="validspan" *ngIf="!UserdataModel.formUserGroup.controls['LastNameControl'].valid &&
+            UserdataModel.formUserGroup.controls['LastNameControl']?.touched" style="color: red;"> Please enter min 5 charecters max 20.</span>         
+                 </div>  
+                 <div class="mb-3">
+                   <label for="exampleInputUserName" class="form-label">User name</label>
+                   <input type="text" [(ngModel)]="UserdataModel.userName" formControlName="UserNameControl"   class="form-control" >
+                   <span class="validspan" *ngIf="!UserdataModel.formUserGroup.controls['UserNameControl'].valid &&
+            UserdataModel.formUserGroup.controls['UserNameControl']?.touched" style="color: red;"> Please enter UserName.</span>           
+                 </div>     
+                 <div class="mb-3">
+                   <label for="exampleInputPassword1" class="form-label">Password</label>
+                   <input type="password" [(ngModel)]="UserdataModel.password" formControlName="Password1Control"  class="form-control" >
+                   <span class="validspan" *ngIf="!UserdataModel.formUserGroup.controls['Password1Control'].valid &&
+            UserdataModel.formUserGroup.controls['Password1Control']?.touched" style="color: red;"> Please enter valid Password( [min 8 - max 15 characters] at least 1 lower,1 upper case,1 number and 1 special characters).</span>           
+                 </div>
+                 <div class="mb-3">
+                   <label for="exampleInputPassword2" class="form-label">Confirm Password</label>
+                   <input type="password" [(ngModel)]="UserdataModel.conPassword" formControlName="Password2Control"  class="form-control" > 
+                   <span class="validspan" *ngIf="!UserdataModel.formUserGroup.controls['Password2Control'].valid &&
+            UserdataModel.formUserGroup.controls['Password2Control']?.touched" style="color: red;"> Please enter Confirm Password.</span>                    
+                 </div>
+                 <div class="mb-3">
+                   <label for="exampleFormControlTextarea1" class="form-label">Address</label>
+                   <textarea class="form-control" [(ngModel)]="UserdataModel.address" formControlName="AddressControl"  id="exampleFormControlTextarea1" rows="3"></textarea>
+                   <span class="validspan" *ngIf="!UserdataModel.formUserGroup.controls['AddressControl'].valid &&
+                   UserdataModel.formUserGroup.controls['AddressControl']?.touched" style="color: red;"> Please enter Address.</span>  
+                 </div>
+                 <div class="mb-3">
+                   <label for="exampleInputState" class="form-label">State</label>
+                   <!-- <input type="text" [(ngModel)]="UserdataModel.state" formControlName="StateControl"  class="form-control" > -->
+                   <select class="form-select" [(ngModel)]="UserdataModel.state" formControlName="StateControl">
+                     <option selected>Choose...</option>
+                     <option *ngFor= "let state of StateDataModels">
+                       {{state.stateName}}
+                     </option>
+                     
+                   </select>
+                   <span class="validspan" *ngIf="!UserdataModel.formUserGroup.controls['StateControl'].valid &&
+            UserdataModel.formUserGroup.controls['StateControl']?.touched" style="color: red;"> Please select State.</span>           
+                 </div> 
+                 <div class="mb-3">
+                   <label for="exampleInputCity" class="form-label">City</label>
+                   <input type="text" [(ngModel)]="UserdataModel.city" formControlName="CityControl"  class="form-control" > 
+                   <span class="validspan" *ngIf="!UserdataModel.formUserGroup.controls['CityControl'].valid &&
+            UserdataModel.formUserGroup.controls['CityControl']?.touched" style="color: red;"> Please enter City.</span>               
+                 </div> 
+               <div class="mb-3">
+                 <label for="exampleInputEmail1" class="form-label">Email address</label>
+                 <input type="email" [(ngModel)]="UserdataModel.email" formControlName="EmailControl" class="form-control" aria-describedby="emailHelp">
+                 <span class="validspan" *ngIf="!UserdataModel.formUserGroup.controls['EmailControl'].valid &&
+            UserdataModel.formUserGroup.controls['EmailControl']?.touched" style="color: red;"> Please enter valid email.</span>
+                 
+               </div>
+               <div class="mb-3">
+                 <label for="exampleInputDOB" class="form-label">Date Of Birth</label>
+                 <input type="date" class="form-control" [(ngModel)]="UserdataModel.dateOfBirth" formControlName="DOBControl"  id="exampleInputPublishers">
+                 <span class="validspan" *ngIf="!UserdataModel.formUserGroup.controls['DOBControl'].valid &&
+                 UserdataModel.formUserGroup.controls['DOBControl']?.touched" style="color: red;"> Please select DOB.</span>
+               </div>
+              
+   
+             </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" [disabled]="(UserdataModel.formUserGroup.invalid)" (click)="AddMember()" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!--Error -->
+  <!-- Button trigger modal -->
+<button id="btnError" style="display: none;" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+  Error
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-body">
+        {{ErrorMsg}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Add Claim-->
+<!-- Button trigger modal -->
+<button type="button" id="btnAddClaim" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal3" style="display: none;">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content claim">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Claim Submission</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="ClaimdataModel.formUserGroup">
+          <div class="mb-3">
+             <label for="exampleInputFirstName" class="form-label">Claim Type</label>
+             <select class="form-select" [(ngModel)]="ClaimdataModel.claimType" formControlName="ClaimType" >
+              <!--<option selected>Choose...</option> -->
+              <option value="1">Vision</option>
+              <option value="2">Dental</option>
+              <option value="2">Medical</option>
+            </select> 
+            <span class="validspan" *ngIf="!ClaimdataModel.formUserGroup.controls['ClaimType'].valid &&
+            ClaimdataModel.formUserGroup.controls['ClaimType']?.touched" style="color: red;"> Please enter Claim type.</span>
+           </div>    
+           <div class="mb-3">
+             <label for="exampleInputClaimAmt"  class="form-label">Claim Amount</label>
+             <input type="number" [(ngModel)]="ClaimdataModel.claimAmount" formControlName="ClaimAmount"  class="form-control" >         
+             <span class="validspan" *ngIf="!ClaimdataModel.formUserGroup.controls['ClaimAmount'].valid &&
+             ClaimdataModel.formUserGroup.controls['ClaimAmount']?.touched" style="color: red;"> Please enter Claim Amount.</span>
+           </div>  
+           <div class="mb-3">
+             <label for="exampleInputRemarks"  class="form-label">Remarks</label>
+             <textarea class="form-control" [(ngModel)]="ClaimdataModel.remarks" formControlName="Remarks" id="exampleFormControlTextarea1" rows="3"></textarea>   
+             <span class="validspan" *ngIf="!ClaimdataModel.formUserGroup.controls['Remarks'].valid &&
+             ClaimdataModel.formUserGroup.controls['Remarks']?.touched" style="color: red;"> Please enter Remarks.</span>           
+           </div>     
+         <div class="mb-3">
+           <label for="exampleInputClaimDt"  class="form-label">Claim date</label>
+           <input type="date" class="form-control" [(ngModel)]="ClaimdataModel.claimDate" formControlName="Claimdate"   id="exampleInputClaimDt">
+           <span class="validspan" *ngIf="!ClaimdataModel.formUserGroup.controls['Claimdate'].valid &&
+             ClaimdataModel.formUserGroup.controls['Claimdate']?.touched" style="color: red;"> Please enter Claim date.</span> 
+         </div>
+        
+
+       </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" [disabled]="(ClaimdataModel.formUserGroup.invalid)" (click)="ClaimSave()" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

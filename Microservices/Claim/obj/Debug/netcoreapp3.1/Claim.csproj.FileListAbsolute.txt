@@ -71,4 +71,3 @@ C:\Users\cogdotnet1701\Desktop\HealthClaim\Microservices\Claim\obj\Debug\netcore
 C:\Users\cogdotnet1701\Desktop\HealthClaim\Microservices\Claim\obj\Debug\netcoreapp3.1\Claim.dll
 C:\Users\cogdotnet1701\Desktop\HealthClaim\Microservices\Claim\obj\Debug\netcoreapp3.1\Claim.pdb
 C:\Users\cogdotnet1701\Desktop\HealthClaim\Microservices\Claim\obj\Debug\netcoreapp3.1\Claim.genruntimeconfig.cache
-C:\Users\cogdotnet1701\Desktop\HealthClaim\Microservices\Claim\obj\Debug\netcoreapp3.1\Claim.csproj.CopyComplete

@@ -1,0 +1,115 @@
+<div class="container" style="width: 100%;">
+
+<div class="container">
+    
+   <div class="card">
+   <div class="text-center">
+     <h3>Claim Submission</h3>
+   
+   </div>
+   <div class="row ">               
+       <div class="col-md-3 " style="margin-left: 80%;">
+           
+           <div> 
+              <button type="button" class="btn" style="color:beige;background-color:black;" data-bs-toggle="modal" data-bs-target="#exampleModal3"
+              >Add Claim</button>
+           </div>
+
+       </div>
+   </div>
+</div>
+</div>
+<div class="container">
+    <div class="card">
+      <div class="row mt-5" *ngIf="MemberClaimModels.length == 0">
+        <div class="col text-center">
+          <span class="text-secondary fs-2 fw-bold fst-italic">There are No Claims Added!</span>
+        </div>
+      </div>
+      <app-newgrid-ui  [grid-columns]="[{'colName':'memberId'},{'colName':'firstName'},{'colName':'lastName'},{'colName':'physicianName'},{'colName':'claimId'},{'colName':'claimAmount'},{'colName':'claimDate'}]"
+        [grid-data]="MemberClaimModels" 
+        >
+      </app-newgrid-ui>
+    </div>
+  
+  </div>
+</div>
+
+  <!--Error -->
+  <!-- Button trigger modal -->
+<button id="btnError" style="display: none;" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+    Error
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        
+        <div class="modal-body">
+          {{ErrorMsg}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!--Add Claim-->
+  <!-- Button trigger modal -->
+  <button type="button" id="btnAddClaim" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal3" style="display: none;">
+    Launch demo modal
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content claim">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Claim Submission</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body ">
+          <form [formGroup]="ClaimdataModel.formUserGroup">
+            <div class="mb-3">
+               <label for="exampleInputFirstName" class="form-label">Claim Type</label>
+               <select class="form-select" [(ngModel)]="ClaimdataModel.claimType"  formControlName="ClaimType" >
+                <!--<option selected>Choose...</option> -->
+                <option value="1">Vision</option>
+                <option value="2">Dental</option>
+                <option value="2">Medical</option>
+              </select> 
+              <span class="validspan" *ngIf="!ClaimdataModel.formUserGroup.controls['ClaimType'].valid &&
+            ClaimdataModel.formUserGroup.controls['ClaimType']?.touched" style="color: red;"> Please enter Claim type.</span>
+             </div>    
+             <div class="mb-3">
+               <label for="exampleInputClaimAmt"  class="form-label" >Claim Amount</label>
+               <input type="number" [(ngModel)]="ClaimdataModel.claimAmount" formControlName="ClaimAmount"  class="form-control">         
+               <span class="validspan" *ngIf="!ClaimdataModel.formUserGroup.controls['ClaimAmount'].valid &&
+             ClaimdataModel.formUserGroup.controls['ClaimAmount']?.touched" style="color: red;"> Please enter Claim Amount.</span>
+             </div>  
+             <div class="mb-3">
+               <label for="exampleInputRemarks"  class="form-label">Remarks</label>
+               <textarea class="form-control" [(ngModel)]="ClaimdataModel.remarks" formControlName="Remarks" id="exampleFormControlTextarea1" rows="3"></textarea>  
+               <span class="validspan" *ngIf="!ClaimdataModel.formUserGroup.controls['Remarks'].valid &&
+             ClaimdataModel.formUserGroup.controls['Remarks']?.touched" style="color: red;"> Please enter Remarks.</span>               
+             </div>     
+           <div class="mb-3">
+             <label for="exampleInputClaimDt"  class="form-label">Claim date</label>
+             <input type="date" class="form-control" [(ngModel)]="ClaimdataModel.claimDate" formControlName="Claimdate"    id="exampleInputClaimDt">
+             <span class="validspan" *ngIf="!ClaimdataModel.formUserGroup.controls['Claimdate'].valid &&
+             ClaimdataModel.formUserGroup.controls['Claimdate']?.touched" style="color: red;"> Please enter Claim date.</span> 
+           </div>
+          
+  
+         </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" [disabled]="(ClaimdataModel.formUserGroup.invalid)" (click)="ClaimSave()"  class="btn btn-primary">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>

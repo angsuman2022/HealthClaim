@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
 
   GetdataFromserver(){
     this._service.GetState().subscribe(res=>{     
-      console.log(res);
+      //console.log(res);
       this.Success(res);
     },res=>console.log(res));
   }
@@ -67,20 +67,35 @@ export class RegisterComponent implements OnInit {
       memberType: this.UserdataModel.memberType,
     };
     
-
+    debugger;
     this._service.registerUser(userdto).subscribe(res=>{   
+      console.log(res.status);
+      if(res.status!=null)
+      {
+        this.ErrorMsg=res.status;
+        document.getElementById('btnError')?.click();
+        return;
+      }
       localStorage.setItem('token',res.token);
       localStorage.setItem('userid',res.userid);
-      localStorage.setItem('role',res.type);
-      this.ErrorMsg="Registration Successful";
-      document.getElementById('btnError')?.click();
-      this._router.navigate(['home']);
+      localStorage.setItem('role',res.role);
+      /* this.ErrorMsg='Registration Successful';    
+      document.getElementById('btnError')?.click(); */
+      if(localStorage.getItem('role')=="Admin")
+         this._router.navigate(['adminpage/add']);
+         else
+         this._router.navigate(['memberpage/add']);
     },res=>{
       console.log(res) ;
       this.ErrorMsg="Registration Unsuccessful";
       document.getElementById('btnError')?.click();
 
     });
+  }
+
+  login()
+  {
+    this._router.navigate(['login']);
   }
 
   hasError(typeofValidator:string,controlname:string):Boolean{

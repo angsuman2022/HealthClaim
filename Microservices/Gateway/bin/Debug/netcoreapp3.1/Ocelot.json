@@ -26,20 +26,52 @@
     },
     {
       "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/Member/Get-Member-Claim",
+      "DownstreamScheme": "https",
+      "ServiceName": "memberService",
+      "UpstreamPathTemplate": "/api/gateway/Member/GetMemberClaim",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/Member/Get-Mem-Claim",
+      "DownstreamScheme": "https",
+      "ServiceName": "memberService",
+      "UpstreamPathTemplate": "/api/gateway/Member/GetMemClaim",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "UseServiceDiscovery": true,
       "DownstreamPathTemplate": "/api/State/Get-State-All",
       "DownstreamScheme": "https",
       "ServiceName": "memberService",
       "UpstreamPathTemplate": "/api/gateway/State/GetStateAll",
       "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/Member/Get-Physician-All",
+      "DownstreamScheme": "https",
+      "ServiceName": "memberService",
+      "UpstreamPathTemplate": "/api/gateway/Member/GetPhysicianAll",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/Member/Search-Claim",
+      "DownstreamScheme": "https",
+      "ServiceName": "memberService",
+      "UpstreamPathTemplate": "/api/gateway/Member/SearchClaim",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/Claim/Claim-Add",
+      "DownstreamScheme": "https",
+      "ServiceName": "claimService",
+      "UpstreamPathTemplate": "/api/gateway/Claim/ClaimAdd",
+      "UpstreamHttpMethod": [ "Post" ]
     }
-    //{
-    //  "UseServiceDiscovery": true,
-    //  "DownstreamPathTemplate": "/api/Cancel/Book-Cancel",
-    //  "DownstreamScheme": "https",
-    //  "ServiceName": "readerService",
-    //  "UpstreamPathTemplate": "/api/gateway/Cancel/BookCancel",
-    //  "UpstreamHttpMethod": [ "Post" ]
-    //}
 
   ],
   "GlobalConfiguration": {

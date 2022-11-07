@@ -12,5 +12,6 @@ namespace Member.Models
         public decimal? ClaimAmount { get; set; }
         public DateTime? ClaimDate { get; set; }
         public int? MemberId { get; set; }
+        public string Remarks { get; set; }
     }
 }

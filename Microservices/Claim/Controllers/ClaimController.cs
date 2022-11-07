@@ -20,7 +20,7 @@ namespace Claim.Controllers
         }
         [HttpPost]
         [Route("Claim-Add")]
-        public IActionResult Post(Claimtbl obj)
+        public IActionResult ClaimAdd(Claimtbl obj)
         {
             string chk = claimService.ClaimAdd(obj);
 

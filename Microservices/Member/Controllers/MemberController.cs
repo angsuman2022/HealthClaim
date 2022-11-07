@@ -19,6 +19,45 @@ namespace Member.Controllers
             memberService = _memberService;
         }
 
+        [HttpGet]
+        [Route("Get-Member-Claim")]
+        public IEnumerable<MemberList> GetMemberClaim()
+        {
+
+            return memberService.GetMemberClaim();
+
+
+        }
+
+        [HttpGet]
+        [Route("Get-Mem-Claim")]
+        public IEnumerable<MemberList> GetMemClaim(int mId)
+        {
+
+            return memberService.GetMemberClaim(mId);
+
+
+        }
+
+        [HttpPost]
+        [Route("Search-Claim")]
+        public IEnumerable<MemberList> GetSearchMemberClaim( MemberList obj)
+        {
+
+            return memberService.GetSearchMemberClaim(obj);
+
+
+        }
+
+        [HttpGet]
+        [Route("Get-Physician-All")]
+        public IEnumerable<PhysicianDet> GetallPhysician()
+        {
+
+            return memberService.GetAllPhysician();
+
+
+        }
 
         [HttpPost]
         [Route("Member-Add")]

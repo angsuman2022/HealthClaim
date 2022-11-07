@@ -17,3 +17,4 @@ C:\Users\cogdotnet1701\Desktop\HealthClaim\Microservices\Common\obj\Debug\netcor
 C:\Users\cogdotnet1701\Desktop\HealthClaim\Microservices\Common\obj\Debug\netcoreapp3.1\Common.csproj.CoreCompileInputs.cache
 C:\Users\cogdotnet1701\Desktop\HealthClaim\Microservices\Common\obj\Debug\netcoreapp3.1\Common.dll
 C:\Users\cogdotnet1701\Desktop\HealthClaim\Microservices\Common\obj\Debug\netcoreapp3.1\Common.pdb
+C:\Users\cogdotnet1701\Desktop\HealthClaim\Microservices\Common\obj\Debug\netcoreapp3.1\Common.csproj.AssemblyReference.cache

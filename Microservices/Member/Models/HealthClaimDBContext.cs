@@ -24,9 +24,7 @@ namespace Member.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-            }
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -46,6 +44,8 @@ namespace Member.Models
                 entity.Property(e => e.ClaimDate).HasColumnType("datetime");
 
                 entity.Property(e => e.ClaimType).HasMaxLength(50);
+
+                entity.Property(e => e.Remarks).HasMaxLength(100);
             });
 
             modelBuilder.Entity<MemberDet>(entity =>
