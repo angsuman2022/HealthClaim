@@ -9,5 +9,6 @@ namespace Claim.Services
     public interface IClaimService
     {
         string ClaimAdd(Claimtbl obj);
+        
     }
 }

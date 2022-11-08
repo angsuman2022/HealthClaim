@@ -52,6 +52,14 @@ export class RegisterComponent implements OnInit {
       document.getElementById('btnError')?.click();
       return;
     }
+
+    if(this.UserdataModel.memberType =="")
+    {
+      debugger;
+      this.ErrorMsg="Please select User Role";
+      document.getElementById('btnError')?.click();
+      return;
+    }
     
     var userdto = {
       firstName:this.UserdataModel.firstName,
@@ -67,7 +75,7 @@ export class RegisterComponent implements OnInit {
       memberType: this.UserdataModel.memberType,
     };
     
-    debugger;
+    
     this._service.registerUser(userdto).subscribe(res=>{   
       console.log(res.status);
       if(res.status!=null)

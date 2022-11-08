@@ -18,13 +18,16 @@ namespace Claim.Models
         }
 
         public virtual DbSet<Claimtbl> Claimtbls { get; set; }
+        public virtual DbSet<Logtbl> Logtbls { get; set; }
         public virtual DbSet<MemberDet> MemberDets { get; set; }
         public virtual DbSet<PhysicianDet> PhysicianDets { get; set; }
         public virtual DbSet<Statetbl> Statetbls { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-           
+            if (!optionsBuilder.IsConfigured)
+            {
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -46,6 +49,17 @@ namespace Claim.Models
                 entity.Property(e => e.ClaimType).HasMaxLength(50);
 
                 entity.Property(e => e.Remarks).HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<Logtbl>(entity =>
+            {
+                entity.HasKey(e => e.Slno);
+
+                entity.ToTable("Logtbl");
+
+                entity.Property(e => e.CreateDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ErrorMsg).HasMaxLength(1000);
             });
 
             modelBuilder.Entity<MemberDet>(entity =>

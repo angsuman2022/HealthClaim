@@ -35,11 +35,16 @@ namespace Claim.Services
             }
             catch
             {
+
                 msg = "Claim entry Unsuccessful";
+               
             }
 
             return msg;
         }
+
+
+       
 
 
     }
